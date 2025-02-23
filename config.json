@@ -5,13 +5,13 @@
         "output_folder_path": "practiceingesteddata",
         "output_model_path": "practicemodels",
         "test_data_path": "testdata",
-        "prod_deployment_path": "production_deployment"
+        "deployment_path": "practice_deployment"
     },
     "prd": {
         "input_folder_path": "sourcedata",
         "output_folder_path": "ingesteddata",
         "output_model_path": "models",
         "test_data_path": "testdata",
-        "prod_deployment_path": "production_deployment"
+        "deployment_path": "production_deployment"
     }
 }
