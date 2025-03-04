@@ -37,7 +37,7 @@ test_data_path = Path(os.getcwd(), config[ENV]["test_data_path"])
 output_folder_path = Path(os.getcwd(), config[ENV]["output_folder_path"])
 
 
-def model_predictions(test_data: pd.DataFrame) -> List[int]:
+def model_predictions(test_data: pd.DataFrame) -> np.ndarray:
     """
     Return predictions made by the deployed model.
 
@@ -50,7 +50,7 @@ def model_predictions(test_data: pd.DataFrame) -> List[int]:
         test_data (pd.DataFrame): The input dataset for which predictions are to be made.
 
     Returns:
-        List[int]: A list of binary predictions (0 = false, 1 = true).
+        List[int]: A list of type Numpy Array with binary predictions (0 = false, 1 = true).
                    This list has the same length as the number of rows in the input dataset.
     """
 
