@@ -1,0 +1,31 @@
+# won't check initial Udacity project files which are not supposed to be modified
+exclude: ^(ingesteddata/|models/|practice_deployment/|practicedata/|practicedataingest/|practicemodels/|production_deployment/|sourcedata/|testdata/|cronjob.txt|.*/)
+
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [python]
+
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: [python]
+
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [python]
+        args: ["--max-line-length=120"]
+
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        exclude: tests/

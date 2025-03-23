@@ -1,6 +1,6 @@
 {
     "active_environment": "dev",
-    "dev":{ 
+    "dev": {
         "input_folder_path": "practicedata",
         "output_folder_path": "practiceingesteddata",
         "output_model_path": "practicemodels",
