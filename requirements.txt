@@ -14,3 +14,4 @@ gunicorn==23.0.0
 jupyter==1.1.1
 jupyterlab==3.6.8
 ydata_profiling==4.15.1
+setuptools=69.0.0
