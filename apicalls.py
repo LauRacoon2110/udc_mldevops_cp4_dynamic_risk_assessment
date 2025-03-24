@@ -15,7 +15,7 @@ from typing import Dict
 
 import requests
 
-from utils import get_logger, load_config
+from utils import get_logger, get_unique_file_path, load_config
 
 # Initialize logger
 logger = get_logger()
@@ -124,8 +124,11 @@ if __name__ == "__main__":
         # Call API endpoints and collect responses
         api_responses = call_api_endpoints()
 
-        # Define the output file path
-        output_file = Path(output_model_path, "apireturns.txt")
+        # Define the base file name
+        base_file_name = "apireturns.txt"
+
+        # Get a unique file path
+        output_file = get_unique_file_path(output_model_path, base_file_name)
 
         # Write responses to the output file
         write_responses_to_file(api_responses, output_file)

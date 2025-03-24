@@ -11,7 +11,7 @@ import pandas as pd
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
 from diagnostics import model_predictions
-from utils import get_logger, load_config
+from utils import get_logger, get_unique_file_path, load_config
 
 # Initialize logger
 logger = get_logger()
@@ -74,7 +74,12 @@ def score_model() -> None:
     plt.title("Confusion Matrix")
     plt.subplots_adjust(left=0.2, bottom=0.2)
 
-    output_file = Path(output_model_path, "confusionmatrix.png")
+    # Define the base file name
+    base_file_name = "confusionmatrix.png"
+
+    # Get a unique file path
+    output_file = get_unique_file_path(output_model_path, base_file_name)
+
     plt.savefig(output_file)
     logger.info("Confusion matrix plot saved to %s", output_file)
 
