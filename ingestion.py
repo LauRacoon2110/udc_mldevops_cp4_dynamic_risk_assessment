@@ -7,7 +7,7 @@ The script also logs the ingestion details to a text file in the output folder.
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 import pandas as pd
 
@@ -26,7 +26,7 @@ input_folder_path = Path(root_path, config[ENV]["input_folder_path"])
 output_folder_path = Path(root_path, config[ENV]["output_folder_path"])
 
 
-def merge_multiple_data_sources(files_to_ingest: Optional[List[str]] = None) -> None:
+def merge_multiple_data_sources(files_to_ingest: Optional[Set[str]] = None) -> None:
     """
     Reads all CSV files in the input folder (or specified files) and merges them into a single dataframe.
     The merged dataframe is saved to the output folder, and ingestion details are logged.
@@ -43,7 +43,7 @@ def merge_multiple_data_sources(files_to_ingest: Optional[List[str]] = None) -> 
 
     # Determine files to ingest
     if files_to_ingest is None:
-        files_to_ingest = [file.name for file in input_folder_path.iterdir() if file.suffix == ".csv"]
+        files_to_ingest = {file.name for file in input_folder_path.iterdir() if file.suffix == ".csv"}
 
     # Process each file
     for file_name in files_to_ingest:
@@ -107,7 +107,4 @@ def merge_multiple_data_sources(files_to_ingest: Optional[List[str]] = None) -> 
 
 
 if __name__ == "__main__":
-    """
-    This block ensures that the merge function is called only when this script is executed directly.
-    """
     merge_multiple_data_sources()

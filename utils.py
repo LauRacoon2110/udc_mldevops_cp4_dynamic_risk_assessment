@@ -80,11 +80,11 @@ def get_unique_file_path(base_path: Path, file_name: str) -> Path:
         Path: A unique file path that does not already exist in the specified directory.
     """
     file_path = base_path / file_name
-    counter = 1
+    counter = 2
 
     while file_path.exists():
         stem, suffix = file_name.rsplit(".", 1)
-        file_path = base_path / f"{stem}_{counter}.{suffix}"
+        file_path = base_path / f"{stem}{counter}.{suffix}"
         counter += 1
 
     return file_path
