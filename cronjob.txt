@@ -1,0 +1,1 @@
+*/10 * * * * /home/laura/projects/udc_mldevops_cp4_dynamic_risk_assessment/.venv/bin/python /home/laura/projects/udc_mldevops_cp4_dynamic_risk_assessment/fullprocess.py >> /home/laura/projects/udc_mldevops_cp4_dynamic_risk_assessment/fullprocess.log 2>&1
