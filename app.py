@@ -40,7 +40,6 @@ output_folder_path = Path(root_path, config[ENV]["output_folder_path"])
 
 # Initialize Flask app
 app = Flask(__name__)
-app.secret_key = "1652d576-484a-49fd-913a-6879acfa6ba4"
 
 
 def read_file_to_predict(file_name: str) -> pd.DataFrame:
