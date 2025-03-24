@@ -106,7 +106,7 @@ This project uses a modular ML pipeline:
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Endpoint         | Method | Description                                       |
 |------------------|--------|---------------------------------------------------|
