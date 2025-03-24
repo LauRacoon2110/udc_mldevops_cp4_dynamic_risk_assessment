@@ -122,7 +122,7 @@ def diagnose() -> Union[Response, Tuple[Response, int]]:
             {
                 "execution_time": duration,
                 "missing_values": missing_values,
-                "outdated_packages": pkg_dependencies,
+                "outdated_packages": pkg_dependencies["structured"],
             }
         )
     except Exception as e:

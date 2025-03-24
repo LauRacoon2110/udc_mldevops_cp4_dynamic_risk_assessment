@@ -47,6 +47,7 @@ output_folder_path = Path(root_path, config[ENV]["output_folder_path"])
 deployment_path = Path(root_path, config[ENV]["deployment_path"])
 latest_score_path = Path(deployment_path, "latestscore.txt")
 ingested_files_path = Path(output_folder_path, "ingestedfiles.txt")
+test_data_file_path = Path(output_folder_path, "finaldata.csv")
 
 
 def check_new_data() -> Optional[Set[str]]:
@@ -98,7 +99,7 @@ def check_model_drift() -> bool:
         logger.info("No latest score found from the already deployed model.")
 
     # Step 2: Use the deployed model to make predictions on the new data
-    new_score = scoring.score_model()
+    new_score = scoring.score_model(model_path=deployment_path, test_data=test_data_file_path)
     logger.info(f"New model score: {new_score}")
 
     # Step 3: Compare the scores

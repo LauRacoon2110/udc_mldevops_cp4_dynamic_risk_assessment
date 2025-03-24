@@ -14,7 +14,7 @@ import pickle
 import subprocess
 import timeit
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
@@ -70,6 +70,7 @@ def model_predictions(test_data: pd.DataFrame) -> NDArray[np.int_]:
         raise ValueError("Length of predictions does not match the number of rows in the input dataset")
 
     logger.info("Prediction completed with %s predictions", len(y_pred))
+    logger.info(y_pred)
     return y_pred
 
 
@@ -146,17 +147,14 @@ def execution_time() -> List[float]:
     return [ingest_duration, train_duration]
 
 
-def outdated_packages_list() -> str:
+def outdated_packages_list() -> Dict[str, Union[str, List[Dict[str, str]]]]:
     """
-    Check for outdated Python packages in the environment.
+    Check for outdated Python packages.
 
     Returns:
-        str: A formatted string showing the package name, installed version, and latest version.
+        dict: Contains both formatted text for logging and structured data for APIs.
     """
-    logger.info(
-        "Generating a list of currently installed package versions to check if they are up to date.\n"
-        "This might take a while..."
-    )
+    logger.info("Generating list of outdated packages...\nThis might take a while ...")
 
     installed_packages = {pkg.key: pkg.version for pkg in pkg_resources.working_set}
     data = []
@@ -170,12 +168,12 @@ def outdated_packages_list() -> str:
         except subprocess.CalledProcessError:
             latest_version = "Not found"
 
-        data.append((pkg, version, latest_version))
+        data.append({"package_name": pkg, "installed_version": version, "latest_version": latest_version})
 
-    max_pkg_len = max(len(pkg) for pkg, _, _ in data)
+    # Format as table for logging / console
+    max_pkg_len = max(len(pkg["package_name"]) for pkg in data)
     max_installed_len = len("Installed Version")
     max_latest_len = len("Latest Version")
-
     header = (
         f"{'Package Name'.ljust(max_pkg_len)} | "
         f"{'Installed Version'.ljust(max_installed_len)} | "
@@ -183,15 +181,17 @@ def outdated_packages_list() -> str:
     )
     output_lines = ["-" * len(header), header, "-" * len(header)]
     output_lines.extend(
-        f"{pkg.ljust(max_pkg_len)} | {installed.ljust(max_installed_len)} | {latest.ljust(max_latest_len)}"
-        for pkg, installed, latest in sorted(data)
+        f"{pkg['package_name'].ljust(max_pkg_len)} | "
+        f"{pkg['installed_version'].ljust(max_installed_len)} | "
+        f"{pkg['latest_version'].ljust(max_latest_len)}"
+        for pkg in sorted(data, key=lambda x: x["package_name"])
     )
     output_lines.append("-" * len(header))
-
-    output_str = "\n".join(output_lines)
+    formatted = "\n".join(output_lines)
     logger.info("Package list generated successfully:")
-    print(output_str)
-    return output_str
+    logger.info(formatted)
+
+    return {"formatted": formatted, "structured": data}
 
 
 if __name__ == "__main__":

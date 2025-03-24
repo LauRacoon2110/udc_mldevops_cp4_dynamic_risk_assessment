@@ -54,28 +54,30 @@ def call_api_endpoints() -> Dict[str, object]:
         prediction_response = requests.post(PREDICTION_ENDPOINT, params={"file_path": "testdata.csv"})
         prediction_response.raise_for_status()
         prediction_result = prediction_response.json()
-        logger.info("Prediction endpoint response received.")
-
+        logger.info("Prediction endpoint response received:\n %s", prediction_result)
         # Call the scoring endpoint
         logger.info("Calling scoring endpoint...")
         scoring_response = requests.get(SCORING_ENDPOINT)
         scoring_response.raise_for_status()
         scoring_result = scoring_response.json()
-        logger.info("Scoring endpoint response received.")
+        logger.info("Scoring endpoint response received:\n %s", scoring_result)
 
         # Call the summary statistics endpoint
         logger.info("Calling summary statistics endpoint...")
         summary_stats_response = requests.get(SUMMARY_STATS_ENDPOINT)
         summary_stats_response.raise_for_status()
         summary_stats_result = summary_stats_response.json()
-        logger.info("Summary statistics endpoint response received.")
+        logger.info("Summary statistics endpoint response received:\n %s", summary_stats_result)
 
         # Call the diagnostics endpoint
         logger.info("Calling diagnostics endpoint...")
         diagnostics_response = requests.get(DIAGNOSTICS_ENDPOINT)
         diagnostics_response.raise_for_status()
-        diagnostics_result = diagnostics_response.text
-        logger.info("Diagnostics endpoint response received.")
+        # diagnostics_result = diagnostics_response.text
+        # Parse JSON instead of .text (assumes the endpoint returns JSON)
+        diagnostics_result = diagnostics_response.json()
+        # diagnostics_result = diagnostics_output["outdated_packages"]
+        logger.info("Diagnostics endpoint response received successfully.")
 
         # Combine all responses
         responses = {
@@ -84,6 +86,8 @@ def call_api_endpoints() -> Dict[str, object]:
             "summary_stats": summary_stats_result,
             "diagnostics": diagnostics_result,
         }
+
+        print(responses)
 
         logger.info("All API responses collected successfully.")
         return responses

@@ -1,13 +1,13 @@
 {
-    "active_environment": "dev",
+    "active_environment": "prod",
     "dev": {
         "input_folder_path": "practicedata",
-        "output_folder_path": "practiceingesteddata",
+        "output_folder_path": "ingesteddata",
         "output_model_path": "practicemodels",
         "test_data_path": "testdata",
-        "deployment_path": "practice_deployment"
+        "deployment_path": "production_deployment"
     },
-    "prd": {
+    "prod": {
         "input_folder_path": "sourcedata",
         "output_folder_path": "ingesteddata",
         "output_model_path": "models",
